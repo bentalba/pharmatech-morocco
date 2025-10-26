@@ -28,6 +28,9 @@ android {
         // BuildConfig fields
         buildConfigField("String", "API_BASE_URL", "\"https://api.pharmatech.ma/v1/\"")
         buildConfigField("String", "GOOGLE_MAPS_API_KEY", "\"${project.findProperty("MAPS_API_KEY")}\"")
+
+        // Manifest placeholders
+        manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = project.findProperty("MAPS_API_KEY") ?: "YOUR_GOOGLE_MAPS_API_KEY_HERE"
     }
 
     buildTypes {
@@ -162,6 +165,11 @@ dependencies {
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+
+    // Google Maps Compose
+    implementation("com.google.maps.android:maps-compose:4.3.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.android.gms:play-services-location:21.1.0")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
