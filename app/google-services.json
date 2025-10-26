@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "123456789",
+    "project_number": "123456789012",
     "project_id": "pharmatech-morocco",
     "storage_bucket": "pharmatech-morocco.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:123456789:android:abcdef",
+        "mobilesdk_app_id": "1:123456789012:android:abcdef123456",
         "android_client_info": {
           "package_name": "com.pharmatech.morocco"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "YOUR_API_KEY_HERE"
+          "current_key": "AIzaSyDummyKeyForLocalDevelopment123456789"
         }
       ],
       "services": {

@@ -21,7 +21,7 @@ import com.pharmatech.morocco.features.pharmacy.domain.model.PharmacyData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PharmacyMapScreen() {
+fun PharmacyMapScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     var hasLocationPermission by remember {
         mutableStateOf(
@@ -57,6 +57,7 @@ fun PharmacyMapScreen() {
     }
 
     Scaffold(
+        modifier = modifier,
         topBar = {
             TopAppBar(
                 title = { Text("Pharmacies Près de Vous") },
