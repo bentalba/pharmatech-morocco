@@ -97,3 +97,16 @@ object ShifaaExtendedColors {
     val infoBlue = Color(0xFF1E90FF)
 }
 
+// Additional gradient and UI colors for compatibility
+val PrimaryGradientStart = ShifaaColors.Gold
+val PrimaryGradientEnd = ShifaaColors.GoldDark
+val HealthGreen = ShifaaColors.PharmacyGreen
+val PremiumGold = ShifaaColors.Gold
+val NeuralDark = ShifaaColors.TealDark
+val ErrorRed = Color(0xFFBA1A1A)
+val Gray100 = Color(0xFFF5F5F5)
+val Gray200 = Color(0xFFEEEEEE)
+val Gray400 = Color(0xFFBDBDBD)
+val Gray600 = Color(0xFF757575)
+val Gray700 = Color(0xFF616161)
+

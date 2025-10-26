@@ -223,6 +223,7 @@ fun HospitalTypeChip(
         leadingIcon = if (isSelected) {
             { Icon(Icons.Default.CheckCircle, null, modifier = Modifier.size(18.dp)) }
         } else null,
+        enabled = true,
         colors = FilterChipDefaults.filterChipColors(
             containerColor = if (isSelected) ShifaaColors.TealMedium else MaterialTheme.colorScheme.surface,
             labelColor = if (isSelected) ShifaaColors.GoldLight else MaterialTheme.colorScheme.onSurface,
@@ -230,6 +231,8 @@ fun HospitalTypeChip(
             selectedLabelColor = ShifaaColors.GoldLight
         ),
         border = FilterChipDefaults.filterChipBorder(
+            enabled = true,
+            selected = isSelected,
             borderColor = color,
             selectedBorderColor = ShifaaColors.Gold,
             borderWidth = 2.dp,

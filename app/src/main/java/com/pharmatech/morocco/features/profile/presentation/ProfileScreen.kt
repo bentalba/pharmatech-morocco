@@ -18,12 +18,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.pharmatech.morocco.features.profile.domain.model.GuestProfile
 import com.pharmatech.morocco.features.profile.domain.model.UserProfile
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(navController: NavController) {
     var userProfile by remember { mutableStateOf(GuestProfile.create("Kénitra")) }
     var showCreateAccountDialog by remember { mutableStateOf(false) }
     
