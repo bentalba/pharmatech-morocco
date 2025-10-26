@@ -9,7 +9,9 @@ sealed class Screen(val route: String) {
     // Main
     object Home : Screen("home")
     object Pharmacy : Screen("pharmacy")
+    object Hospital : Screen("hospital")
     object Medication : Screen("medication")
+    object Insurance : Screen("insurance")
     object Tracker : Screen("tracker")
     object Profile : Screen("profile")
 

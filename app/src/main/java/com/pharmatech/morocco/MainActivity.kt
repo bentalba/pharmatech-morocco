@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.pharmatech.morocco.ui.theme.PharmaTechTheme
+import com.pharmatech.morocco.ui.navigation.PharmaTechNavigation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    // New: Bottom navigation with 4 tabs
+                    // SHIFAA Premium System: 6-tab navigation with Hospital Management & Insurance Portal
                     PharmaTechNavigation()
                 }
             }

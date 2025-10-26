@@ -1,31 +1,99 @@
 package com.pharmatech.morocco.ui.theme
 
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
-// Color Palette
-val PrimaryGradientStart = Color(0xFF667EEA)
-val PrimaryGradientEnd = Color(0xFF764BA2)
-val HealthGreen = Color(0xFF10B981)
-val AlertAmber = Color(0xFFF59E0B)
-val PremiumGold = Color(0xFFFBBF24)
-val NeuralDark = Color(0xFF0F172A)
-val GlassWhite = Color(0x1AFFFFFF)
+// SHIFAA Brand Colors - Matching the logo
+object ShifaaColors {
+    // Primary - Gold/Golden
+    val Gold = Color(0xFFD4AF37)
+    val GoldLight = Color(0xFFFFD700)
+    val GoldDark = Color(0xFFB8860B)
 
-// Additional Colors
-val SuccessGreen = Color(0xFF22C55E)
-val ErrorRed = Color(0xFFEF4444)
-val WarningOrange = Color(0xFFF97316)
-val InfoBlue = Color(0xFF3B82F6)
+    // Secondary - Green (Pharmacy Symbol)
+    val PharmacyGreen = Color(0xFF2D5F3F)
+    val PharmacyGreenLight = Color(0xFF4A7C5D)
+    val PharmacyGreenDark = Color(0xFF1A3D28)
 
-// Neutral Colors
-val Gray50 = Color(0xFFF9FAFB)
-val Gray100 = Color(0xFFF3F4F6)
-val Gray200 = Color(0xFFE5E7EB)
-val Gray300 = Color(0xFFD1D5DB)
-val Gray400 = Color(0xFF9CA3AF)
-val Gray500 = Color(0xFF6B7280)
-val Gray600 = Color(0xFF4B5563)
-val Gray700 = Color(0xFF374151)
-val Gray800 = Color(0xFF1F2937)
-val Gray900 = Color(0xFF111827)
+    // Tertiary - Teal (Background)
+    val TealDark = Color(0xFF1B4D52)
+    val TealMedium = Color(0xFF2C6B6F)
+    val TealLight = Color(0xFF3D8B8F)
+
+    // Accent Colors
+    val Emerald = Color(0xFF50C878)
+    val DarkGreen = Color(0xFF013220)
+
+    // Neutral Colors
+    val IvoryWhite = Color(0xFFFFFFF0)
+    val CreamWhite = Color(0xFFFFF8DC)
+    val CharcoalBlack = Color(0xFF1C1C1C)
+    val WarmGray = Color(0xFF3E3E3E)
+}
+
+// Light Theme - Premium look
+val ShifaaLightColorScheme = lightColorScheme(
+    primary = ShifaaColors.Gold,
+    onPrimary = Color.White,
+    primaryContainer = ShifaaColors.GoldLight.copy(alpha = 0.15f),
+    onPrimaryContainer = ShifaaColors.GoldDark,
+
+    secondary = ShifaaColors.PharmacyGreen,
+    onSecondary = Color.White,
+    secondaryContainer = ShifaaColors.PharmacyGreenLight.copy(alpha = 0.15f),
+    onSecondaryContainer = ShifaaColors.PharmacyGreenDark,
+
+    tertiary = ShifaaColors.TealMedium,
+    onTertiary = Color.White,
+    tertiaryContainer = ShifaaColors.TealLight.copy(alpha = 0.15f),
+    onTertiaryContainer = ShifaaColors.TealDark,
+
+    background = ShifaaColors.IvoryWhite,
+    onBackground = ShifaaColors.CharcoalBlack,
+    surface = Color.White,
+    onSurface = ShifaaColors.CharcoalBlack,
+    surfaceVariant = ShifaaColors.CreamWhite,
+    onSurfaceVariant = ShifaaColors.WarmGray,
+
+    error = Color(0xFFBA1A1A),
+    onError = Color.White
+)
+
+// Dark Theme - Luxurious dark look
+val ShifaaDarkColorScheme = darkColorScheme(
+    primary = ShifaaColors.GoldLight,
+    onPrimary = ShifaaColors.CharcoalBlack,
+    primaryContainer = ShifaaColors.GoldDark,
+    onPrimaryContainer = ShifaaColors.GoldLight,
+
+    secondary = ShifaaColors.Emerald,
+    onSecondary = ShifaaColors.CharcoalBlack,
+    secondaryContainer = ShifaaColors.PharmacyGreen,
+    onSecondaryContainer = ShifaaColors.PharmacyGreenLight,
+
+    tertiary = ShifaaColors.TealLight,
+    onTertiary = Color.White,
+    tertiaryContainer = ShifaaColors.TealDark,
+    onTertiaryContainer = ShifaaColors.TealLight,
+
+    background = ShifaaColors.DarkGreen,
+    onBackground = ShifaaColors.IvoryWhite,
+    surface = ShifaaColors.TealDark,
+    onSurface = ShifaaColors.IvoryWhite,
+    surfaceVariant = ShifaaColors.WarmGray,
+    onSurfaceVariant = ShifaaColors.CreamWhite,
+
+    error = Color(0xFFFFB4AB),
+    onError = Color(0xFF690005)
+)
+
+// Extended color properties for special use cases
+object ShifaaExtendedColors {
+    val hospitalRed = Color(0xFFDC143C)
+    val clinicBlue = Color(0xFF4682B4)
+    val successGreen = Color(0xFF228B22)
+    val warningOrange = Color(0xFFFF8C00)
+    val infoBlue = Color(0xFF1E90FF)
+}
 
