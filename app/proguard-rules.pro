@@ -128,3 +128,25 @@
 # Keep BuildConfig
 -keep class com.pharmatech.morocco.BuildConfig { *; }
 
+# Apache POI - Excel file import
+-dontwarn org.apache.poi.**
+-dontwarn org.apache.xmlbeans.**
+-dontwarn org.openxmlformats.schemas.**
+-dontwarn com.microsoft.schemas.**
+-dontwarn org.etsi.**
+-dontwarn org.w3.**
+-dontwarn schemaorg_apache_xmlbeans.**
+
+-keep class org.apache.poi.** { *; }
+-keep class org.apache.xmlbeans.** { *; }
+-keep class org.openxmlformats.schemas.** { *; }
+
+# Keep POI OOXML classes for Excel import
+-keep class org.apache.poi.xssf.** { *; }
+-keep class org.apache.poi.ss.** { *; }
+-keep class org.apache.poi.ooxml.** { *; }
+
+# Hospital and Insurance models
+-keep class com.pharmatech.morocco.features.hospital.** { *; }
+-keep class com.pharmatech.morocco.features.insurance.** { *; }
+

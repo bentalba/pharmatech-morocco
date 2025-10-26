@@ -21,13 +21,16 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        // Enable MultiDex for large libraries (Apache POI)
+        multiDexEnabled = true
+
         vectorDrawables {
             useSupportLibrary = true
         }
 
         // BuildConfig fields - API Base URL only
         buildConfigField("String", "API_BASE_URL", "\"https://api.pharmatech.ma/v1/\"")
-        
+
         // Use manifest placeholder for Maps API key (more secure than BuildConfig)
         manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = project.findProperty("MAPS_API_KEY") ?: "YOUR_API_KEY_HERE"
     }
@@ -75,7 +78,22 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            // Exclude duplicate files from Apache POI
+            excludes += "/META-INF/DEPENDENCIES"
+            excludes += "/META-INF/LICENSE"
+            excludes += "/META-INF/LICENSE.txt"
+            excludes += "/META-INF/license.txt"
+            excludes += "/META-INF/NOTICE"
+            excludes += "/META-INF/NOTICE.txt"
+            excludes += "/META-INF/notice.txt"
+            excludes += "/META-INF/ASL2.0"
+            excludes += "/META-INF/*.kotlin_module"
         }
+    }
+
+    // Optimize DEX for Apache POI
+    dexOptions {
+        javaMaxHeapSize = "4g"
     }
 }
 
@@ -165,9 +183,23 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 
-    // Apache POI for Excel file import
-    implementation("org.apache.poi:poi:5.2.5")
-    implementation("org.apache.poi:poi-ooxml:5.2.5")
+    // Apache POI for Excel file import (optimized for Android)
+    implementation("org.apache.poi:poi:5.2.5") {
+        exclude(group = "stax", module = "stax-api")
+        exclude(group = "xml-apis", module = "xml-apis")
+        exclude(group = "com.github.virtuald", module = "curvesapi")
+    }
+    implementation("org.apache.poi:poi-ooxml:5.2.5") {
+        exclude(group = "stax", module = "stax-api")
+        exclude(group = "xml-apis", module = "xml-apis")
+        exclude(group = "com.github.virtuald", module = "curvesapi")
+        exclude(group = "org.apache.poi", module = "poi-ooxml-schemas")
+    }
+    // Lighter OOXML schemas
+    implementation("org.apache.poi:poi-ooxml-lite:5.2.5")
+
+    // MultiDex support for large libraries
+    implementation("androidx.multidex:multidex:2.0.1")
 
     // Google Maps Compose
     implementation("com.google.maps.android:maps-compose:4.3.0")
