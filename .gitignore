@@ -119,3 +119,6 @@ LaunchApp.bat
 QuickLaunch.bat
 SystemCheck.bat
 
+# Claude AI local settings
+.claude/
+
