@@ -25,9 +25,11 @@ android {
             useSupportLibrary = true
         }
 
-        // BuildConfig fields
+        // BuildConfig fields - API Base URL only
         buildConfigField("String", "API_BASE_URL", "\"https://api.pharmatech.ma/v1/\"")
-        buildConfigField("String", "GOOGLE_MAPS_API_KEY", "\"${project.findProperty("MAPS_API_KEY")}\"")
+        
+        // Use manifest placeholder for Maps API key (more secure than BuildConfig)
+        manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = project.findProperty("MAPS_API_KEY") ?: "YOUR_API_KEY_HERE"
     }
 
     buildTypes {

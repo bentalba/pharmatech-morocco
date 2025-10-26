@@ -5,6 +5,60 @@ All notable changes to PharmaTech Morocco will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-10-26
+
+### Added
+- **Emulator Testing & Development Support** 🔧
+  - `EmulatorDetector` utility class for detecting emulator vs physical device
+  - `MockDataGenerator` for realistic Moroccan pharmacy/medication test data
+  - `AlarmPermissionHelper` for handling Android 12+ exact alarm permissions
+  - Network security configuration for debug/release builds (HTTP allowed in debug only)
+  - Comprehensive emulator testing guide (`EMULATOR_TESTING_GUIDE.md`)
+  - Detailed emulator issues analysis and master blueprint (`EMULATOR_ISSUES_ANALYSIS.md`)
+  - Database migration strategy documentation (`DATABASE_MIGRATIONS.md`)
+
+### Fixed
+- **Critical Firebase Initialization** (P0)
+  - Added try-catch error handling around Firebase initialization
+  - App now runs in **OFFLINE MODE** gracefully if Firebase config is missing/invalid
+  - Prevents immediate crash on first launch with placeholder config
+- **Repository Null Handling** (P0)
+  - Fixed null body responses in `PharmacyRepository` causing perpetual loading states
+  - Fixed null body responses in `MedicationRepository` causing UI hangs
+  - All repository methods now properly emit Success/Error states
+- **Network Monitor Crashes** (P0)
+  - Added `SecurityException` handling for restricted network access
+  - Added null checks for connectivity manager
+  - Improved error logging without crashing the app
+- **Exact Alarm Permissions** (P1)
+  - Added permission handling for `SCHEDULE_EXACT_ALARM` on Android 12+ (API 31+)
+  - Provides user guidance when exact alarms are denied
+  - Prevents medication reminder crashes on newer Android versions
+
+### Changed
+- **Enhanced ProGuard Rules**
+  - Added comprehensive rules for ML Kit (barcode scanning)
+  - Added ARCore rules for future AR features
+  - Added model class preservation rules
+  - Prevents release build crashes from code obfuscation
+- **Improved Error Handling**
+  - More descriptive error messages throughout repositories
+  - Better offline/online state management
+  - Enhanced logging for debugging emulator issues
+
+### Security
+- **Network Security Configuration**
+  - Production builds enforce HTTPS only
+  - Debug builds allow HTTP for local testing
+  - Prevents cleartext traffic in release builds
+  - Added security best practices documentation
+
+### Documentation
+- Added 20-point issue identification in `EMULATOR_ISSUES_ANALYSIS.md`
+- Added step-by-step emulator setup in `EMULATOR_TESTING_GUIDE.md`
+- Added database migration strategy to prevent data loss in `DATABASE_MIGRATIONS.md`
+- Improved inline code documentation and error messages
+
 ## [1.0.0] - 2025-10-26
 
 ### Added
