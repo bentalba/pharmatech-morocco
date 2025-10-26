@@ -34,8 +34,8 @@ fun SplashScreen(navController: NavController) {
     LaunchedEffect(key1 = true) {
         startAnimation = true
         delay(2500)
-        // TODO: Check if user is logged in
-        navController.navigate(Screen.Login.route) {
+        // Navigate directly to Home screen (auth will be implemented later)
+        navController.navigate(Screen.Home.route) {
             popUpTo(Screen.Splash.route) { inclusive = true }
         }
     }
@@ -64,13 +64,13 @@ fun SplashScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "PharmaTech",
+                text = "SHIFAA",
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.onPrimary,
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "Morocco",
+                text = "Système de Pharmacie Premium",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f)
             )
