@@ -21,25 +21,45 @@ class PharmaTechApp : Application(), Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
 
-        // Initialize Timber for logging
+        // Initialize Timber for logging (must be first)
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-        } else {
-            Timber.plant(CrashReportingTree())
         }
 
-        // Initialize Firebase
-        FirebaseApp.initializeApp(this)
+        // Initialize Firebase with error handling
+        var firebaseInitialized = false
+        try {
+            FirebaseApp.initializeApp(this)
+            firebaseInitialized = true
+            Timber.i("Firebase initialized successfully")
+        } catch (e: IllegalStateException) {
+            Timber.e(e, "Firebase initialization failed - likely missing or invalid google-services.json")
+            Timber.w("App will run in OFFLINE MODE with limited functionality")
+        } catch (e: Exception) {
+            Timber.e(e, "Unexpected error during Firebase initialization")
+        }
 
-        // Setup Crashlytics
-        FirebaseCrashlytics.getInstance().apply {
-            setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG)
+        // Setup Crashlytics only if Firebase initialized successfully
+        if (firebaseInitialized) {
+            try {
+                FirebaseCrashlytics.getInstance().apply {
+                    setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG)
+                }
+
+                // Plant crash reporting tree for production
+                if (!BuildConfig.DEBUG) {
+                    Timber.plant(CrashReportingTree())
+                }
+            } catch (e: Exception) {
+                Timber.e(e, "Crashlytics setup failed")
+            }
         }
 
         // Create notification channels
         createNotificationChannels()
 
-        Timber.i("PharmaTech Morocco App initialized successfully")
+        val mode = if (firebaseInitialized) "ONLINE" else "OFFLINE"
+        Timber.i("PharmaTech Morocco App initialized successfully in $mode mode")
     }
 
     override val workManagerConfiguration: Configuration
@@ -98,8 +118,13 @@ class PharmaTechApp : Application(), Configuration.Provider {
     private class CrashReportingTree : Timber.Tree() {
         override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
             if (priority == android.util.Log.ERROR || priority == android.util.Log.WARN) {
-                FirebaseCrashlytics.getInstance().log(message)
-                t?.let { FirebaseCrashlytics.getInstance().recordException(it) }
+                try {
+                    FirebaseCrashlytics.getInstance().log(message)
+                    t?.let { FirebaseCrashlytics.getInstance().recordException(it) }
+                } catch (e: Exception) {
+                    // Crashlytics not available - fall back to system log
+                    android.util.Log.e("CrashReportingTree", "Failed to log to Crashlytics", e)
+                }
             }
         }
     }

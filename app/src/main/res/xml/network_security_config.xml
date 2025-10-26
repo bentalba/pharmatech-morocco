@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Base configuration for all builds -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <!-- Trust system certificates -->
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!-- Debug-only overrides -->
+    <debug-overrides>
+        <!-- Allow cleartext (HTTP) traffic in debug builds for local development -->
+        <base-config cleartextTrafficPermitted="true">
+            <trust-anchors>
+                <!-- Trust system and user-added certificates for debugging -->
+                <certificates src="system" />
+                <certificates src="user" />
+            </trust-anchors>
+        </base-config>
+    </debug-overrides>
+
+    <!-- Production domain configurations -->
+    <!-- Add specific domains if you need custom certificate pinning -->
+    <!--
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">api.pharmatech.ma</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+    -->
+</network-security-config>

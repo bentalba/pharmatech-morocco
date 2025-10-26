@@ -40,17 +40,32 @@ class PharmacyRepository @Inject constructor(
             try {
                 val response = apiService.getPharmacies(latitude, longitude, radius)
                 if (response.isSuccessful) {
-                    response.body()?.let { pharmacies ->
-                        val entities = pharmacies.map { it.toEntity() }
+                    val body = response.body()
+                    if (body != null) {
+                        val entities = body.map { it.toEntity() }
                         pharmacyDao.insertPharmacies(entities)
                         emit(Resource.Success(entities))
+                    } else {
+                        // Response successful but body is null
+                        val cached = pharmacyDao.getAllPharmacies().first()
+                        if (cached.isNotEmpty()) {
+                            emit(Resource.Success(cached))
+                        } else {
+                            emit(Resource.Error("No pharmacy data available"))
+                        }
                     }
                 } else {
-                    emit(Resource.Error("Failed to fetch pharmacies: ${response.message()}"))
+                    emit(Resource.Error("Failed to fetch pharmacies: ${response.code()} ${response.message()}"))
                 }
             } catch (e: Exception) {
                 Timber.e(e, "Error fetching pharmacies")
-                emit(Resource.Error(e.message ?: "Unknown error occurred"))
+                // Still return cached data if available
+                val cached = pharmacyDao.getAllPharmacies().first()
+                if (cached.isNotEmpty()) {
+                    emit(Resource.Success(cached))
+                } else {
+                    emit(Resource.Error(e.message ?: "Unknown error occurred"))
+                }
             }
         } else {
             // If no cache and no network
@@ -81,12 +96,19 @@ class PharmacyRepository @Inject constructor(
             if (networkMonitor.isCurrentlyConnected()) {
                 val response = apiService.searchPharmacies(query)
                 if (response.isSuccessful) {
-                    response.body()?.let { pharmacies ->
-                        val entities = pharmacies.map { it.toEntity() }
+                    val body = response.body()
+                    if (body != null) {
+                        val entities = body.map { it.toEntity() }
                         pharmacyDao.insertPharmacies(entities)
                         emit(Resource.Success(entities))
+                    } else if (localResults.isEmpty()) {
+                        emit(Resource.Error("No pharmacies found for: $query"))
                     }
+                } else if (localResults.isEmpty()) {
+                    emit(Resource.Error("Search failed: ${response.code()} ${response.message()}"))
                 }
+            } else if (localResults.isEmpty()) {
+                emit(Resource.Error("No results found offline"))
             }
         } catch (e: Exception) {
             Timber.e(e, "Error searching pharmacies")

@@ -31,19 +31,22 @@ class MedicationRepository @Inject constructor(
             if (networkMonitor.isCurrentlyConnected()) {
                 val response = apiService.searchMedications(query)
                 if (response.isSuccessful) {
-                    response.body()?.let { medications ->
-                        val entities = medications.map { it.toEntity() }
+                    val body = response.body()
+                    if (body != null) {
+                        val entities = body.map { it.toEntity() }
                         medicationDao.insertMedications(entities)
                         emit(Resource.Success(entities))
+                    } else if (localResults.isEmpty()) {
+                        emit(Resource.Error("No medications found for: $query"))
                     }
                 } else {
                     if (localResults.isEmpty()) {
-                        emit(Resource.Error("Failed to search medications"))
+                        emit(Resource.Error("Search failed: ${response.code()} ${response.message()}"))
                     }
                 }
             } else {
                 if (localResults.isEmpty()) {
-                    emit(Resource.Error("No internet connection"))
+                    emit(Resource.Error("No internet connection. No local results found."))
                 }
             }
         } catch (e: Exception) {
@@ -64,16 +67,19 @@ class MedicationRepository @Inject constructor(
                 // Search online
                 val response = apiService.searchMedications(barcode, "barcode")
                 if (response.isSuccessful) {
-                    response.body()?.firstOrNull()?.let { medication ->
-                        val entity = medication.toEntity()
+                    val body = response.body()
+                    if (body != null && body.isNotEmpty()) {
+                        val entity = body.first().toEntity()
                         medicationDao.insertMedication(entity)
                         emit(Resource.Success(entity))
-                    } ?: emit(Resource.Error("Medication not found"))
+                    } else {
+                        emit(Resource.Error("Medication not found for barcode: $barcode"))
+                    }
                 } else {
-                    emit(Resource.Error("Failed to find medication"))
+                    emit(Resource.Error("Barcode lookup failed: ${response.code()} ${response.message()}"))
                 }
             } else {
-                emit(Resource.Error("No internet connection"))
+                emit(Resource.Error("No internet connection. Barcode not found in local database."))
             }
         } catch (e: Exception) {
             Timber.e(e, "Error finding medication by barcode")
