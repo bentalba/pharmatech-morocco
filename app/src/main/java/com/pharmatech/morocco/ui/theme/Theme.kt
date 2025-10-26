@@ -70,7 +70,7 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun PharmaTechTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false, // Set to false to always use SHIFAA brand colors
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -78,8 +78,8 @@ fun PharmaTechTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> ShifaaDarkColorScheme
+        else -> ShifaaLightColorScheme
     }
 
     val view = LocalView.current
@@ -93,7 +93,8 @@ fun PharmaTechTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = PharmaTechTypography,
+        typography = ShifaaTypography,
+        shapes = ShifaaShapes,
         content = content
     )
 }

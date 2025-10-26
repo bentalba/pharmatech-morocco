@@ -18,20 +18,24 @@ import com.pharmatech.morocco.features.auth.presentation.RegisterScreen
 import com.pharmatech.morocco.features.auth.presentation.SplashScreen
 import com.pharmatech.morocco.features.home.presentation.HomeScreen
 import com.pharmatech.morocco.features.pharmacy.presentation.PharmacyScreen
+import com.pharmatech.morocco.features.hospital.presentation.HospitalMapScreen
 import com.pharmatech.morocco.features.medication.presentation.MedicationScreen
+import com.pharmatech.morocco.features.insurance.presentation.InsurancePortalScreen
 import com.pharmatech.morocco.features.tracker.presentation.TrackerScreen
 import com.pharmatech.morocco.features.profile.presentation.ProfileScreen
+import com.pharmatech.morocco.ui.theme.ShifaaColors
 
 sealed class BottomNavItem(
     val route: String,
     val title: String,
     val icon: ImageVector
 ) {
-    object Home : BottomNavItem(Screen.Home.route, "Home", Icons.Default.Home)
-    object Pharmacy : BottomNavItem(Screen.Pharmacy.route, "Pharmacy", Icons.Default.LocalPharmacy)
-    object Medication : BottomNavItem(Screen.Medication.route, "Medication", Icons.Default.Medication)
-    object Tracker : BottomNavItem(Screen.Tracker.route, "Tracker", Icons.Default.CalendarMonth)
-    object Profile : BottomNavItem(Screen.Profile.route, "Profile", Icons.Default.Person)
+    object Home : BottomNavItem(Screen.Home.route, "Accueil", Icons.Default.Home)
+    object Pharmacy : BottomNavItem(Screen.Pharmacy.route, "Pharmacies", Icons.Default.LocalPharmacy)
+    object Hospital : BottomNavItem(Screen.Hospital.route, "Hôpitaux", Icons.Default.LocalHospital)
+    object Medication : BottomNavItem(Screen.Medication.route, "Médicaments", Icons.Default.Medication)
+    object Insurance : BottomNavItem(Screen.Insurance.route, "Assurance", Icons.Default.HealthAndSafety)
+    object Profile : BottomNavItem(Screen.Profile.route, "Profil", Icons.Default.Person)
 }
 
 @Composable
@@ -40,8 +44,9 @@ fun PharmaTechNavigation() {
     val bottomNavItems = listOf(
         BottomNavItem.Home,
         BottomNavItem.Pharmacy,
+        BottomNavItem.Hospital,
         BottomNavItem.Medication,
-        BottomNavItem.Tracker,
+        BottomNavItem.Insurance,
         BottomNavItem.Profile
     )
 
@@ -52,11 +57,31 @@ fun PharmaTechNavigation() {
 
             // Show bottom bar only on main screens
             if (currentDestination?.route in bottomNavItems.map { it.route }) {
-                NavigationBar {
+                NavigationBar(
+                    containerColor = ShifaaColors.TealDark,
+                    contentColor = ShifaaColors.GoldLight
+                ) {
                     bottomNavItems.forEach { item ->
                         NavigationBarItem(
-                            icon = { Icon(item.icon, contentDescription = item.title) },
-                            label = { Text(item.title) },
+                            icon = {
+                                Icon(
+                                    item.icon,
+                                    contentDescription = item.title,
+                                    tint = if (currentDestination?.hierarchy?.any { it.route == item.route } == true)
+                                        ShifaaColors.GoldLight
+                                    else
+                                        ShifaaColors.IvoryWhite.copy(alpha = 0.6f)
+                                )
+                            },
+                            label = {
+                                Text(
+                                    item.title,
+                                    color = if (currentDestination?.hierarchy?.any { it.route == item.route } == true)
+                                        ShifaaColors.GoldLight
+                                    else
+                                        ShifaaColors.IvoryWhite.copy(alpha = 0.6f)
+                                )
+                            },
                             selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
                             onClick = {
                                 navController.navigate(item.route) {
@@ -66,7 +91,14 @@ fun PharmaTechNavigation() {
                                     launchSingleTop = true
                                     restoreState = true
                                 }
-                            }
+                            },
+                            colors = NavigationBarItemDefaults.colors(
+                                selectedIconColor = ShifaaColors.GoldLight,
+                                selectedTextColor = ShifaaColors.GoldLight,
+                                unselectedIconColor = ShifaaColors.IvoryWhite.copy(alpha = 0.6f),
+                                unselectedTextColor = ShifaaColors.IvoryWhite.copy(alpha = 0.6f),
+                                indicatorColor = ShifaaColors.PharmacyGreen
+                            )
                         )
                     }
                 }
@@ -96,8 +128,14 @@ fun PharmaTechNavigation() {
             composable(Screen.Pharmacy.route) {
                 PharmacyScreen(navController = navController)
             }
+            composable(Screen.Hospital.route) {
+                HospitalMapScreen(navController = navController)
+            }
             composable(Screen.Medication.route) {
                 MedicationScreen(navController = navController)
+            }
+            composable(Screen.Insurance.route) {
+                InsurancePortalScreen(navController = navController)
             }
             composable(Screen.Tracker.route) {
                 TrackerScreen(navController = navController)
