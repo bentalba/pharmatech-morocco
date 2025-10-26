@@ -38,3 +38,29 @@ data class PharmacyReview(
     val createdAt: Date
 )
 
+// Sample pharmacy data for Kenitra
+object PharmacyData {
+    val kenitiraPharmacy = Pharmacy(
+        id = "pharmacy_kenitra_bir_rami_001",
+        name = "Pharmacie Bir Rami",
+        address = "Villa N°699, Rue Mehjoubi Mohamed, Lotissement Bir Rami Est",
+        city = "KÉNITRA",
+        latitude = 34.24532545335408,
+        longitude = -6.5984582249030925,
+        phoneNumber = "08 08 68 49 98",
+        openingHours = "Lun-Ven: 09:00-12:30, 15:00-19:30 | Sam: 09:00-13:00",
+        hasDelivery = false,
+        hasOnlineOrdering = false,
+        hasParking = false,
+        is24Hours = false,
+        isGuardPharmacy = false,
+        rating = 4.5,
+        reviewCount = 0,
+        lastUpdated = Date()
+    )
+    
+    fun getAllPharmacies(): List<Pharmacy> {
+        return listOf(kenitiraPharmacy)
+    }
+}
+
