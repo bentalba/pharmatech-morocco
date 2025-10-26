@@ -58,6 +58,13 @@ fun RegisterScreen(
                 is AuthEvent.ShowError -> {
                     Toast.makeText(context, event.message, Toast.LENGTH_LONG).show()
                 }
+                is AuthEvent.ShowSuccess -> {
+                    Toast.makeText(
+                        context, 
+                        event.message, 
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }

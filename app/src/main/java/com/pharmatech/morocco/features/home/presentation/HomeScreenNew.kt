@@ -53,6 +53,9 @@ fun HomeScreen(
                 is HomeEvent.RefreshSuccess -> {
                     Toast.makeText(context, "Refreshed", Toast.LENGTH_SHORT).show()
                 }
+                null -> {
+                    // No event to handle
+                }
             }
         }
     }

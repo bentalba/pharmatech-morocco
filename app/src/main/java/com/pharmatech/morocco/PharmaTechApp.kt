@@ -29,9 +29,15 @@ class PharmaTechApp : Application(), Configuration.Provider {
         // Initialize Firebase with error handling
         var firebaseInitialized = false
         try {
-            FirebaseApp.initializeApp(this)
-            firebaseInitialized = true
-            Timber.i("Firebase initialized successfully")
+            // Only initialize if google-services.json is valid
+            val firebaseApp = FirebaseApp.initializeApp(this)
+            if (firebaseApp != null) {
+                firebaseInitialized = true
+                Timber.i("Firebase initialized successfully")
+            }
+        } catch (e: IllegalArgumentException) {
+            Timber.w("Firebase initialization skipped - Invalid API key in google-services.json")
+            Timber.i("App will run in OFFLINE MODE - all local features will work normally")
         } catch (e: IllegalStateException) {
             Timber.e(e, "Firebase initialization failed - likely missing or invalid google-services.json")
             Timber.w("App will run in OFFLINE MODE with limited functionality")

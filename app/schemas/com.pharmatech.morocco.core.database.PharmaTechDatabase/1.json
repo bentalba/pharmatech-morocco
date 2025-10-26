@@ -1,0 +1,822 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "c14cde76d44b0eeb751553f2674b5f1b",
+    "entities": [
+      {
+        "tableName": "users",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `email` TEXT NOT NULL, `displayName` TEXT NOT NULL, `phoneNumber` TEXT, `photoUrl` TEXT, `dateOfBirth` INTEGER, `gender` TEXT, `bloodType` TEXT, `allergies` TEXT NOT NULL, `chronicConditions` TEXT NOT NULL, `emergencyContact` TEXT, `preferredLanguage` TEXT NOT NULL, `isPremium` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `lastUpdated` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "displayName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phoneNumber",
+            "columnName": "phoneNumber",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "photoUrl",
+            "columnName": "photoUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateOfBirth",
+            "columnName": "dateOfBirth",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "gender",
+            "columnName": "gender",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "bloodType",
+            "columnName": "bloodType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "allergies",
+            "columnName": "allergies",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chronicConditions",
+            "columnName": "chronicConditions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "emergencyContact",
+            "columnName": "emergencyContact",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "preferredLanguage",
+            "columnName": "preferredLanguage",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isPremium",
+            "columnName": "isPremium",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastUpdated",
+            "columnName": "lastUpdated",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "pharmacies",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `nameAr` TEXT, `address` TEXT NOT NULL, `addressAr` TEXT, `city` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `phoneNumber` TEXT NOT NULL, `email` TEXT, `website` TEXT, `openingHours` TEXT NOT NULL, `is24Hours` INTEGER NOT NULL, `hasDelivery` INTEGER NOT NULL, `hasOnlineOrdering` INTEGER NOT NULL, `hasParking` INTEGER NOT NULL, `isGuardPharmacy` INTEGER NOT NULL, `rating` REAL NOT NULL, `reviewCount` INTEGER NOT NULL, `imageUrl` TEXT, `services` TEXT NOT NULL, `lastUpdated` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nameAr",
+            "columnName": "nameAr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "addressAr",
+            "columnName": "addressAr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "city",
+            "columnName": "city",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phoneNumber",
+            "columnName": "phoneNumber",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "website",
+            "columnName": "website",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "openingHours",
+            "columnName": "openingHours",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is24Hours",
+            "columnName": "is24Hours",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasDelivery",
+            "columnName": "hasDelivery",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasOnlineOrdering",
+            "columnName": "hasOnlineOrdering",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasParking",
+            "columnName": "hasParking",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isGuardPharmacy",
+            "columnName": "isGuardPharmacy",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rating",
+            "columnName": "rating",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reviewCount",
+            "columnName": "reviewCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageUrl",
+            "columnName": "imageUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "services",
+            "columnName": "services",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastUpdated",
+            "columnName": "lastUpdated",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "medications",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `nameAr` TEXT, `nameFr` TEXT, `description` TEXT NOT NULL, `descriptionAr` TEXT, `descriptionFr` TEXT, `category` TEXT NOT NULL, `isOTC` INTEGER NOT NULL, `activeIngredient` TEXT NOT NULL, `dosageForm` TEXT NOT NULL, `strength` TEXT NOT NULL, `manufacturer` TEXT NOT NULL, `imageUrl` TEXT, `barcode` TEXT, `sideEffects` TEXT NOT NULL, `contraindications` TEXT NOT NULL, `interactions` TEXT NOT NULL, `storageConditions` TEXT NOT NULL, `price` REAL, `lastUpdated` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nameAr",
+            "columnName": "nameAr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nameFr",
+            "columnName": "nameFr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descriptionAr",
+            "columnName": "descriptionAr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "descriptionFr",
+            "columnName": "descriptionFr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isOTC",
+            "columnName": "isOTC",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "activeIngredient",
+            "columnName": "activeIngredient",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dosageForm",
+            "columnName": "dosageForm",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "strength",
+            "columnName": "strength",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "manufacturer",
+            "columnName": "manufacturer",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageUrl",
+            "columnName": "imageUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "barcode",
+            "columnName": "barcode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sideEffects",
+            "columnName": "sideEffects",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contraindications",
+            "columnName": "contraindications",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "interactions",
+            "columnName": "interactions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "storageConditions",
+            "columnName": "storageConditions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "price",
+            "columnName": "price",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastUpdated",
+            "columnName": "lastUpdated",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "medication_tracker",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `userId` TEXT NOT NULL, `medicationId` TEXT NOT NULL, `medicationName` TEXT NOT NULL, `dosage` TEXT NOT NULL, `frequency` TEXT NOT NULL, `timeOfDay` TEXT NOT NULL, `startDate` INTEGER NOT NULL, `endDate` INTEGER, `instructions` TEXT, `isActive` INTEGER NOT NULL, `color` TEXT NOT NULL, `reminderEnabled` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `lastUpdated` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "medicationId",
+            "columnName": "medicationId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "medicationName",
+            "columnName": "medicationName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dosage",
+            "columnName": "dosage",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "frequency",
+            "columnName": "frequency",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeOfDay",
+            "columnName": "timeOfDay",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startDate",
+            "columnName": "startDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endDate",
+            "columnName": "endDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "instructions",
+            "columnName": "instructions",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isActive",
+            "columnName": "isActive",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "color",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reminderEnabled",
+            "columnName": "reminderEnabled",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastUpdated",
+            "columnName": "lastUpdated",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "reminders",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `userId` TEXT NOT NULL, `trackerId` TEXT NOT NULL, `medicationName` TEXT NOT NULL, `scheduledTime` INTEGER NOT NULL, `isTaken` INTEGER NOT NULL, `takenAt` INTEGER, `isSkipped` INTEGER NOT NULL, `skippedReason` TEXT, `notificationSent` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "trackerId",
+            "columnName": "trackerId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "medicationName",
+            "columnName": "medicationName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scheduledTime",
+            "columnName": "scheduledTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isTaken",
+            "columnName": "isTaken",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "takenAt",
+            "columnName": "takenAt",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isSkipped",
+            "columnName": "isSkipped",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "skippedReason",
+            "columnName": "skippedReason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "notificationSent",
+            "columnName": "notificationSent",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "favorite_pharmacies",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userId` TEXT NOT NULL, `pharmacyId` TEXT NOT NULL, `pharmacyName` TEXT NOT NULL, `addedAt` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pharmacyId",
+            "columnName": "pharmacyId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pharmacyName",
+            "columnName": "pharmacyName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "addedAt",
+            "columnName": "addedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "medication_history",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `userId` TEXT NOT NULL, `medicationId` TEXT NOT NULL, `medicationName` TEXT NOT NULL, `dosage` TEXT NOT NULL, `takenAt` INTEGER NOT NULL, `wasOnTime` INTEGER NOT NULL, `scheduledTime` INTEGER NOT NULL, `notes` TEXT, `sideEffectsReported` TEXT NOT NULL, `effectiveness` INTEGER, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "medicationId",
+            "columnName": "medicationId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "medicationName",
+            "columnName": "medicationName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dosage",
+            "columnName": "dosage",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "takenAt",
+            "columnName": "takenAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wasOnTime",
+            "columnName": "wasOnTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scheduledTime",
+            "columnName": "scheduledTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sideEffectsReported",
+            "columnName": "sideEffectsReported",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "effectiveness",
+            "columnName": "effectiveness",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "health_insights",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `userId` TEXT NOT NULL, `type` TEXT NOT NULL, `title` TEXT NOT NULL, `titleAr` TEXT, `titleFr` TEXT, `message` TEXT NOT NULL, `messageAr` TEXT, `messageFr` TEXT, `priority` TEXT NOT NULL, `isRead` INTEGER NOT NULL, `actionRequired` INTEGER NOT NULL, `actionUrl` TEXT, `createdAt` INTEGER NOT NULL, `expiresAt` INTEGER, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "titleAr",
+            "columnName": "titleAr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "titleFr",
+            "columnName": "titleFr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "message",
+            "columnName": "message",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "messageAr",
+            "columnName": "messageAr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "messageFr",
+            "columnName": "messageFr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "priority",
+            "columnName": "priority",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isRead",
+            "columnName": "isRead",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "actionRequired",
+            "columnName": "actionRequired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "actionUrl",
+            "columnName": "actionUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "expiresAt",
+            "columnName": "expiresAt",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c14cde76d44b0eeb751553f2674b5f1b')"
+    ]
+  }
+}

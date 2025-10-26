@@ -30,6 +30,15 @@ android {
         
         // Use manifest placeholder for Maps API key (more secure than BuildConfig)
         manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = project.findProperty("MAPS_API_KEY") ?: "YOUR_API_KEY_HERE"
+        
+        // Room schema export configuration
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf(
+                    "room.schemaLocation" to "$projectDir/schemas"
+                )
+            }
+        }
     }
 
     buildTypes {

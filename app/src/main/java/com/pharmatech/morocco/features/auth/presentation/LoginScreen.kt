@@ -1,68 +1,64 @@
 package com.pharmatech.morocco.features.auth.presentation
 
 import android.widget.Toast
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Login
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.pharmatech.morocco.ui.components.LoadingDialog
 import androidx.navigation.NavController
-import kotlinx.coroutines.flow.collectLatest
+import com.pharmatech.morocco.ui.components.GradientButton
+import com.pharmatech.morocco.ui.components.LoadingDialog
 import com.pharmatech.morocco.ui.navigation.Screen
 import kotlinx.coroutines.flow.collectLatest
 
-fun LoginScreen(
-    navController: NavController,
-    viewModel: AuthViewModel = hiltViewModel()
-) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-    val context = LocalContext.current
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
     navController: NavController,
-    var emailError by remember { mutableStateOf<String?>(null) }
-    var passwordError by remember { mutableStateOf<String?>(null) }
-
-    // Handle navigation events
-    LaunchedEffect(key1 = true) {
-        viewModel.event.collectLatest { event ->
-            when (event) {
-                is AuthEvent.NavigateToHome -> {
-                    navController.navigate(Screen.Home.route) {
-                        popUpTo(Screen.Login.route) { inclusive = true }
-                    }
-                }
-                is AuthEvent.ShowError -> {
-                    Toast.makeText(context, event.message, Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-    }
-
-    // Show loading dialog when processing
-    if (state.isLoading) {
-        LoadingDialog(message = "Signing in...")
-    }
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -73,8 +69,7 @@ fun LoginScreen(
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
 
-    // Handle navigation events
-    LaunchedEffect(key1 = true) {
+    LaunchedEffect(Unit) {
         viewModel.event.collectLatest { event ->
             when (event) {
                 is AuthEvent.NavigateToHome -> {
@@ -82,14 +77,16 @@ fun LoginScreen(
                         popUpTo(Screen.Login.route) { inclusive = true }
                     }
                 }
+
                 is AuthEvent.ShowError -> {
                     Toast.makeText(context, event.message, Toast.LENGTH_LONG).show()
                 }
+
+                else -> Unit
             }
         }
     }
 
-    // Show loading dialog when processing
     if (state.isLoading) {
         LoadingDialog(message = "Signing in...")
     }
@@ -108,7 +105,6 @@ fun LoginScreen(
         ) {
             Spacer(modifier = Modifier.height(48.dp))
 
-            // Logo and Title
             Text(
                 text = "💊",
                 style = MaterialTheme.typography.displayMedium
@@ -116,10 +112,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "Welcome Back",
-                onValueChange = {
-                    password = it
-                    passwordError = validatePassword(it)
-                },
+                style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold
             )
             Text(
@@ -130,38 +123,81 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(48.dp))
 
-            // Email Field
             OutlinedTextField(
                 value = email,
-                isError = passwordError != null,
-                supportingText = passwordError?.let { { Text(it) } },
                 onValueChange = {
                     email = it
                     emailError = validateEmail(it)
                 },
                 label = { Text("Email") },
-                leadingIcon = {
-                    Icon(Icons.Default.Email, contentDescription = null)
-                },
-                isError = emailError != null,
-                supportingText = emailError?.let { { Text(it) } },
+                leadingIcon = { Icon(Icons.Default.Email, contentDescription = null) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
-                singleLine = true
+                singleLine = true,
+                isError = emailError != null,
+                supportingText = emailError?.let { error -> { Text(error) } }
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Password Field
             OutlinedTextField(
                 value = password,
-                onValueChange = { password = it },
-                label = { Text("Password") },
-                leadingIcon = {
-                    Icon(Icons.Default.Lock, contentDescription = null)
+                onValueChange = {
+                    password = it
+                    passwordError = validatePassword(it)
                 },
+                label = { Text("Password") },
+                leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
                 trailingIcon = {
+                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                        Icon(
+                            imageVector = if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                            contentDescription = if (passwordVisible) "Hide password" else "Show password"
+                        )
+                    }
+                },
+                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp),
+                singleLine = true,
+                isError = passwordError != null,
+                supportingText = passwordError?.let { error -> { Text(error) } }
+            )
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+                horizontalArrangement = androidx.compose.foundation.layout.Arrangement.End
+            ) {
+                Text(
+                    text = "Forgot Password?",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.clickable {
+                        if (validateEmail(email) == null) {
+                            viewModel.resetPassword(email)
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "Enter a valid email to reset password",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            GradientButton(
+                text = "Login",
+                onClick = {
+                    emailError = validateEmail(email)
+                    passwordError = validatePassword(password)
+
                     if (validateForm(email, password)) {
                         viewModel.login(email, password)
                     } else {
@@ -170,49 +206,13 @@ fun LoginScreen(
                             "Please fix the errors before continuing",
                             Toast.LENGTH_SHORT
                         ).show()
-                            contentDescription = if (passwordVisible) "Hide password" else "Show password"
-                        )
-                enabled = !state.isLoading && email.isNotBlank() && password.isNotBlank()
-                },
-                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp),
-                singleLine = true
-            )
-
-            // Forgot Password
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
-                horizontalArrangement = Arrangement.End
-            ) {
-                Text(
-                    text = "Forgot Password?",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.clickable { /* TODO: Navigate to forgot password */ }
-                )
-            }
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            // Login Button
-            GradientButton(
-                text = "Login",
-                onClick = {
-                    // TODO: Implement login logic
-                    navController.navigate(Screen.Home.route) {
-                        popUpTo(Screen.Login.route) { inclusive = true }
                     }
                 },
-                enabled = !isLoading && email.isNotBlank() && password.isNotBlank()
+                enabled = !state.isLoading && email.isNotBlank() && password.isNotBlank()
             )
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Divider
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -229,13 +229,15 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Google Sign In
             OutlinedButton(
                 onClick = { /* TODO: Google Sign In */ },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp),
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = MaterialTheme.colorScheme.onBackground
+                )
             ) {
                 Icon(
                     imageVector = Icons.Default.Login,
@@ -248,9 +250,8 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Sign Up Link
             Row(
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = androidx.compose.foundation.layout.Arrangement.Center
             ) {
                 Text(
                     text = "Don't have an account? ",
@@ -270,7 +271,6 @@ fun LoginScreen(
     }
 }
 
-// Validation functions
 private fun validateEmail(email: String): String? {
     return when {
         email.isBlank() -> "Email is required"

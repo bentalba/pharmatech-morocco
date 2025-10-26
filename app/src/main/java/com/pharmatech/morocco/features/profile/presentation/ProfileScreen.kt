@@ -6,6 +6,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.Bloodtype
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -103,7 +104,7 @@ fun ProfileScreen(navController: NavController) {
 
             item {
                 ProfileMenuItem(
-                    icon = Icons.Default.BloodtypeOutlined,
+                    icon = Icons.Outlined.Bloodtype,
                     title = "Blood Type",
                     subtitle = "Not set",
                     onClick = { /* TODO */ }
