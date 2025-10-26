@@ -20,6 +20,9 @@ android {
         versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        
+        // Enable MultiDex for large libraries like Apache POI
+        multiDexEnabled = true
 
         vectorDrawables {
             useSupportLibrary = true
@@ -85,6 +88,9 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/LICENSE*"
+            excludes += "/META-INF/NOTICE*"
+            excludes += "META-INF/versions/9/previous-compilation-data.bin"
         }
     }
 }
@@ -181,9 +187,21 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 
-    // Apache POI for Excel file import
-    implementation("org.apache.poi:poi:5.2.5")
-    implementation("org.apache.poi:poi-ooxml:5.2.5")
+    // Apache POI for Excel file import (optimized)
+    implementation("org.apache.poi:poi:5.2.5") {
+        exclude(group = "stax", module = "stax-api")
+        exclude(group = "xml-apis", module = "xml-apis")
+    }
+    implementation("org.apache.poi:poi-ooxml:5.2.5") {
+        exclude(group = "stax", module = "stax-api")
+        exclude(group = "xml-apis", module = "xml-apis")
+        exclude(group = "org.apache.xmlbeans", module = "xmlbeans")
+    }
+    // Use lightweight ooxml-lite instead of full schemas
+    implementation("org.apache.poi:poi-ooxml-lite:5.2.5")
+    
+    // MultiDex support
+    implementation("androidx.multidex:multidex:2.0.1")
 
     // Google Maps Compose
     implementation("com.google.maps.android:maps-compose:4.3.0")
