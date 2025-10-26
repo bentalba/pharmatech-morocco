@@ -122,3 +122,5 @@ SystemCheck.bat
 # Claude AI local settings
 .claude/
 
+# Personal downloads folder
+Downloads/
