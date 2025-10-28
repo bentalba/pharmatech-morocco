@@ -146,11 +146,202 @@ object MedicationDatabase {
     )
     
     /**
+     * DOLIPRANE 1000 MG - Paracetamol
+     * Common pain reliever and fever reducer
+     */
+    private val doliprane1000 = Medication(
+        id = "med_doliprane_1000",
+        name = "DOLIPRANE 1000 MG",
+        nameAr = "دوليبران 1000 مغ",
+        dosage = "1000 mg",
+        pharmaceuticalForm = "Comprimé",
+        composition = "Paracétamol 1000 mg",
+        therapeuticClass = TherapeuticClass.ANALGESICS,
+        packSize = "8 comprimés",
+        ppv = 15.50,
+        priceHospital = 10.20,
+        priceWholesaler = 12.40,
+        manufacturer = "Sanofi",
+        distributor = "SANOFI MAROC",
+        indications = "Traitement symptomatique de la douleur et de la fièvre",
+        prescriptionRequired = false,
+        isGeneric = false
+    )
+
+    /**
+     * DOLIPRANE 500 MG - Paracetamol
+     */
+    private val doliprane500 = Medication(
+        id = "med_doliprane_500",
+        name = "DOLIPRANE 500 MG",
+        nameAr = "دوليبران 500 مغ",
+        dosage = "500 mg",
+        pharmaceuticalForm = "Comprimé",
+        composition = "Paracétamol 500 mg",
+        therapeuticClass = TherapeuticClass.ANALGESICS,
+        packSize = "16 comprimés",
+        ppv = 12.80,
+        priceHospital = 8.50,
+        priceWholesaler = 10.24,
+        manufacturer = "Sanofi",
+        distributor = "SANOFI MAROC",
+        indications = "Traitement symptomatique de la douleur et de la fièvre",
+        prescriptionRequired = false,
+        isGeneric = false
+    )
+
+    /**
+     * ASPEGIC 500 MG - Aspirin
+     */
+    private val aspegic500 = Medication(
+        id = "med_aspegic_500",
+        name = "ASPEGIC 500 MG",
+        nameAr = "أسبجيك 500 مغ",
+        dosage = "500 mg",
+        pharmaceuticalForm = "Poudre pour solution buvable",
+        composition = "Acétylsalicylate de lysine équivalent à 500 mg d'acide acétylsalicylique",
+        therapeuticClass = TherapeuticClass.ANALGESICS,
+        packSize = "20 sachets",
+        ppv = 18.90,
+        priceHospital = 12.50,
+        priceWholesaler = 15.12,
+        manufacturer = "Sanofi",
+        distributor = "SANOFI MAROC",
+        indications = "Traitement symptomatique des douleurs d'intensité légère à modérée et/ou des états fébriles",
+        prescriptionRequired = false,
+        isGeneric = false
+    )
+
+    /**
+     * CORTISONE 10 MG
+     */
+    private val cortisone10 = Medication(
+        id = "med_cortisone_10",
+        name = "CORTANCYL 10 MG",
+        nameAr = "كورتانسيل 10 مغ",
+        dosage = "10 mg",
+        pharmaceuticalForm = "Comprimé",
+        composition = "Prednisone 10 mg",
+        therapeuticClass = TherapeuticClass.ANTI_INFLAMMATORY,
+        packSize = "30 comprimés",
+        ppv = 28.50,
+        priceHospital = 18.90,
+        priceWholesaler = 22.80,
+        manufacturer = "Sanofi",
+        distributor = "SANOFI MAROC",
+        indications = "Traitement anti-inflammatoire et immunosuppresseur",
+        contraindications = "Infections non contrôlées, ulcère gastroduodénal évolutif",
+        prescriptionRequired = true,
+        isGeneric = false
+    )
+
+    /**
+     * VITAMIN C - Not eligible for reimbursement
+     */
+    private val vitaminC = Medication(
+        id = "med_vitamin_c",
+        name = "VITAMINE C 500 MG",
+        nameAr = "فيتامين سي 500 مغ",
+        dosage = "500 mg",
+        pharmaceuticalForm = "Comprimé effervescent",
+        composition = "Acide ascorbique 500 mg",
+        therapeuticClass = TherapeuticClass.VITAMINS,
+        packSize = "20 comprimés",
+        ppv = 22.00,
+        priceHospital = 14.50,
+        priceWholesaler = 17.60,
+        manufacturer = "Laboratoire Général",
+        distributor = "PHARMACIE CENTRALE",
+        indications = "Prévention et traitement des carences en vitamine C",
+        prescriptionRequired = false,
+        isGeneric = false
+    )
+
+    /**
+     * AMOXICILLIN 500 MG - Antibiotic
+     */
+    private val amoxicillin500 = Medication(
+        id = "med_amoxicillin_500",
+        name = "AMOXICILLINE 500 MG",
+        nameAr = "أموكسيسيلين 500 مغ",
+        dosage = "500 mg",
+        pharmaceuticalForm = "Gélule",
+        composition = "Amoxicilline 500 mg",
+        therapeuticClass = TherapeuticClass.ANTIBIOTICS,
+        packSize = "12 gélules",
+        ppv = 32.50,
+        priceHospital = 21.50,
+        priceWholesaler = 26.00,
+        manufacturer = "GlaxoSmithKline",
+        distributor = "GSK MAROC",
+        indications = "Infections bactériennes sensibles à l'amoxicilline",
+        contraindications = "Allergie aux pénicillines",
+        prescriptionRequired = true,
+        isGeneric = true
+    )
+
+    /**
+     * INSULIN 100UI - Essential diabetes medication
+     */
+    private val insulin100ui = Medication(
+        id = "med_insulin_100ui",
+        name = "INSULINE RAPIDE 100 UI/ML",
+        nameAr = "أنسولين سريع 100 وحدة دولية/مل",
+        dosage = "100 UI/mL",
+        pharmaceuticalForm = "Solution injectable",
+        composition = "Insuline humaine 100 UI/mL",
+        therapeuticClass = TherapeuticClass.ENDOCRINE,
+        packSize = "Flacon 10 mL",
+        ppv = 85.00,
+        priceHospital = 56.00,
+        priceWholesaler = 68.00,
+        manufacturer = "Novo Nordisk",
+        distributor = "NOVO NORDISK MAROC",
+        indications = "Traitement du diabète sucré",
+        storageConditions = "À conserver au réfrigérateur entre 2°C et 8°C",
+        prescriptionRequired = true,
+        isGeneric = false
+    )
+
+    /**
+     * Expensive cancer drug - Example of differential coverage
+     */
+    private val expensiveCancerDrug = Medication(
+        id = "med_expensive_cancer_drug",
+        name = "ONCOTHERAP 250 MG",
+        nameAr = "أونكوثيراب 250 مغ",
+        dosage = "250 mg",
+        pharmaceuticalForm = "Comprimé pelliculé",
+        composition = "Principe actif anticancéreux 250 mg",
+        therapeuticClass = TherapeuticClass.OTHER,
+        packSize = "30 comprimés",
+        ppv = 4500.00,
+        priceHospital = 3000.00,
+        priceWholesaler = 3600.00,
+        manufacturer = "Roche",
+        distributor = "ROCHE MAROC",
+        indications = "Traitement de certains cancers",
+        contraindications = "Nombreuses contre-indications, consultation spécialisée requise",
+        prescriptionRequired = true,
+        isGeneric = false
+    )
+
+    /**
      * Get all medications
      * Returns list of all available medications
      */
     fun getAllMedications(): List<Medication> {
-        return listOf(cotareg)
+        return listOf(
+            cotareg,
+            doliprane1000,
+            doliprane500,
+            aspegic500,
+            cortisone10,
+            vitaminC,
+            amoxicillin500,
+            insulin100ui,
+            expensiveCancerDrug
+        )
     }
     
     /**
