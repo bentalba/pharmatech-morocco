@@ -162,6 +162,10 @@ chore: update dependencies to latest versions
 * `docs/` - Documentation: `docs/api-documentation`
 * `test/` - Tests: `test/tracker-unit-tests`
 
+**Important**: Delete your branch after it has been merged to keep the repository clean.
+
+For more information on branch management and cleanup, see [BRANCH_CLEANUP.md](BRANCH_CLEANUP.md).
+
 ## Pull Request Process
 
 1. **Update your branch** with latest upstream changes:
