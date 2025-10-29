@@ -475,6 +475,26 @@ test: Tests
 chore: Maintenance
 ```
 
+### Gestion des Branches
+
+Pour maintenir un repository propre et organisé:
+
+- **Branches principales**: `master` (production) et `dev` (développement)
+- **Branches temporaires**: Utiliser le format `feature/nom`, `fix/nom`, etc.
+- **Nettoyage**: Supprimer les branches après merge
+
+📖 **Guide complet**: Voir [BRANCH_CLEANUP.md](BRANCH_CLEANUP.md) pour:
+- Liste des branches actuelles et recommandations
+- Script de nettoyage automatique (`cleanup-branches.sh`)
+- Conventions de nommage des branches
+- Règles de protection des branches
+
+```bash
+# Nettoyer les anciennes branches
+./cleanup-branches.sh --dry-run  # Simulation
+./cleanup-branches.sh            # Exécution réelle
+```
+
 ---
 
 ## 📄 License
