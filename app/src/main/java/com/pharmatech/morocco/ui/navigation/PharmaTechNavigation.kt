@@ -1,6 +1,9 @@
 package com.pharmatech.morocco.ui.navigation
 
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -27,15 +30,14 @@ import com.pharmatech.morocco.ui.theme.ShifaaColors
 
 sealed class BottomNavItem(
     val route: String,
-    val title: String,
     val icon: ImageVector
 ) {
-    object Home : BottomNavItem(Screen.Home.route, "Accueil", Icons.Default.Home)
-    object Pharmacy : BottomNavItem(Screen.Pharmacy.route, "Pharmacies", Icons.Default.LocalPharmacy)
-    object Hospital : BottomNavItem(Screen.Hospital.route, "Hôpitaux", Icons.Default.LocalHospital)
-    object Medication : BottomNavItem(Screen.Medication.route, "Médicaments", Icons.Default.Medication)
-    object Insurance : BottomNavItem(Screen.Insurance.route, "Assurance", Icons.Default.HealthAndSafety)
-    object Profile : BottomNavItem(Screen.Profile.route, "Profil", Icons.Default.Person)
+    object Home : BottomNavItem(Screen.Home.route, Icons.Default.Home)
+    object Pharmacy : BottomNavItem(Screen.Pharmacy.route, Icons.Default.LocalPharmacy)
+    object Hospital : BottomNavItem(Screen.Hospital.route, Icons.Default.LocalHospital)
+    object Medication : BottomNavItem(Screen.Medication.route, Icons.Default.Medication)
+    object Insurance : BottomNavItem(Screen.Insurance.route, Icons.Default.HealthAndSafety)
+    object Profile : BottomNavItem(Screen.Profile.route, Icons.Default.Person)
 }
 
 @Composable
@@ -51,6 +53,8 @@ fun PharmaTechNavigation() {
     )
 
     Scaffold(
+        modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars),
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         bottomBar = {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentDestination = navBackStackEntry?.destination
@@ -66,17 +70,8 @@ fun PharmaTechNavigation() {
                             icon = {
                                 Icon(
                                     item.icon,
-                                    contentDescription = item.title,
+                                    contentDescription = null,
                                     tint = if (currentDestination?.hierarchy?.any { it.route == item.route } == true)
-                                        ShifaaColors.GoldLight
-                                    else
-                                        ShifaaColors.IvoryWhite.copy(alpha = 0.6f)
-                                )
-                            },
-                            label = {
-                                Text(
-                                    item.title,
-                                    color = if (currentDestination?.hierarchy?.any { it.route == item.route } == true)
                                         ShifaaColors.GoldLight
                                     else
                                         ShifaaColors.IvoryWhite.copy(alpha = 0.6f)
@@ -94,9 +89,7 @@ fun PharmaTechNavigation() {
                             },
                             colors = NavigationBarItemDefaults.colors(
                                 selectedIconColor = ShifaaColors.GoldLight,
-                                selectedTextColor = ShifaaColors.GoldLight,
                                 unselectedIconColor = ShifaaColors.IvoryWhite.copy(alpha = 0.6f),
-                                unselectedTextColor = ShifaaColors.IvoryWhite.copy(alpha = 0.6f),
                                 indicatorColor = ShifaaColors.PharmacyGreen
                             )
                         )
@@ -146,4 +139,3 @@ fun PharmaTechNavigation() {
         }
     }
 }
-
