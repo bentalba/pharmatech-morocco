@@ -1,5 +1,6 @@
 package com.pharmatech.morocco.ui.navigation
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
@@ -26,6 +27,7 @@ import com.pharmatech.morocco.features.medication.presentation.MedicationScreen
 import com.pharmatech.morocco.features.insurance.presentation.InsurancePortalScreen
 import com.pharmatech.morocco.features.tracker.presentation.TrackerScreen
 import com.pharmatech.morocco.features.profile.presentation.ProfileScreen
+import com.pharmatech.morocco.ui.components.BannerAdView
 import com.pharmatech.morocco.ui.theme.ShifaaColors
 
 sealed class BottomNavItem(
@@ -61,38 +63,43 @@ fun PharmaTechNavigation() {
 
             // Show bottom bar only on main screens
             if (currentDestination?.route in bottomNavItems.map { it.route }) {
-                NavigationBar(
-                    containerColor = ShifaaColors.TealDark,
-                    contentColor = ShifaaColors.GoldLight
-                ) {
-                    bottomNavItems.forEach { item ->
-                        NavigationBarItem(
-                            icon = {
-                                Icon(
-                                    item.icon,
-                                    contentDescription = null,
-                                    tint = if (currentDestination?.hierarchy?.any { it.route == item.route } == true)
-                                        ShifaaColors.GoldLight
-                                    else
-                                        ShifaaColors.IvoryWhite.copy(alpha = 0.6f)
-                                )
-                            },
-                            selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
-                            onClick = {
-                                navController.navigate(item.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = true
+                Column {
+                    // Banner Ad above navigation bar
+                    BannerAdView()
+                    
+                    NavigationBar(
+                        containerColor = ShifaaColors.TealDark,
+                        contentColor = ShifaaColors.GoldLight
+                    ) {
+                        bottomNavItems.forEach { item ->
+                            NavigationBarItem(
+                                icon = {
+                                    Icon(
+                                        item.icon,
+                                        contentDescription = null,
+                                        tint = if (currentDestination?.hierarchy?.any { it.route == item.route } == true)
+                                            ShifaaColors.GoldLight
+                                        else
+                                            ShifaaColors.IvoryWhite.copy(alpha = 0.6f)
+                                    )
+                                },
+                                selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
+                                onClick = {
+                                    navController.navigate(item.route) {
+                                        popUpTo(navController.graph.findStartDestination().id) {
+                                            saveState = true
+                                        }
+                                        launchSingleTop = true
+                                        restoreState = true
                                     }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            },
-                            colors = NavigationBarItemDefaults.colors(
-                                selectedIconColor = ShifaaColors.GoldLight,
-                                unselectedIconColor = ShifaaColors.IvoryWhite.copy(alpha = 0.6f),
-                                indicatorColor = ShifaaColors.PharmacyGreen
+                                },
+                                colors = NavigationBarItemDefaults.colors(
+                                    selectedIconColor = ShifaaColors.GoldLight,
+                                    unselectedIconColor = ShifaaColors.IvoryWhite.copy(alpha = 0.6f),
+                                    indicatorColor = ShifaaColors.PharmacyGreen
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }
